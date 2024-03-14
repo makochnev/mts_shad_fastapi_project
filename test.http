@@ -12,7 +12,8 @@ content-type: application/json
     "title": "Wrong Code",
     "author": "Robert Martin",
     "pages": 104,
-    "year": 2007
+    "year": 2007,
+    "seller_id": 1
 }
 
 ###
@@ -23,12 +24,12 @@ GET http://localhost:8000/api/v1/books/ HTTP/1.1
 ###
 
 # Получаем одну книгу по ее ИД
-GET http://localhost:8000/api/v1/books/1 HTTP/1.1
+GET http://localhost:8000/api/v1/books/3 HTTP/1.1
 
 ###
 
 # Обновляем поля в данных о книге
-PUT http://localhost:8000/api/v1/books/1 HTTP/1.1
+PUT http://localhost:8000/api/v1/books/3 HTTP/1.1
 content-type: application/json
 
 {
@@ -36,7 +37,8 @@ content-type: application/json
     "author": "Robert Martin",
     "count_pages": 10,
     "year": 2007,
-    "id": 0
+    "seller_id": 2,
+    "id": 1
 }
 
 ###
@@ -46,3 +48,46 @@ DELETE http://localhost:8000/api/v1/books/1 HTTP/1.1
 content-type: application/json
 
 ###
+
+# Создаем продавца
+
+POST http://localhost:8000/api/v1/sellers/ HTTP/1.1
+content-type: application/json
+
+{
+    "first_name": "Seller",
+    "last_name": "Seller",
+    "email": "Seller@mail.ru",
+    "password": "simple_pass"
+}
+
+###
+
+# Получаем продавца по его ID
+
+GET http://localhost:8000/api/v1/sellers/2 HTTP/1.1
+
+###
+
+# Получение списка всех продавцов
+
+GET http://localhost:8000/api/v1/sellers/ HTTP/1.1
+
+###
+
+# Одновление данных продавца 
+
+PUT http://localhost:8000/api/v1/sellers/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "first_name": "Another_seller",
+    "last_name": "Another_seller",
+    "email": "Another_seller@yandex.ru"
+}
+
+###
+
+# Удаляем продавца
+DELETE http://localhost:8000/api/v1/sellers/2 HTTP/1.1
+content-type: application/json
