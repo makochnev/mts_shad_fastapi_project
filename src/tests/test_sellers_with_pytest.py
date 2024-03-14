@@ -36,7 +36,7 @@ async def test_get_seller(db_session, async_client):
     book = books.Book(author="Pushkin", title="Eugeny Onegin", year=2001, count_pages=104, seller_id=seller.id)
     book_2 = books.Book(author="Lermontov", title="Mziri", year=1997, count_pages=104, seller_id=seller.id)
 
-    db_session.add_all([book_1, book_2])
+    db_session.add_all([book, book_2])
     await db_session.flush()
 
     response = await async_client.get(f"/api/v1/sellers/{seller.id}")
@@ -48,9 +48,9 @@ async def test_get_seller(db_session, async_client):
     assert result_data["email"] == seller.email
     assert result_data["id"] == seller.id
     assert result_data["books"] == [
-            {"id": book.id, "author": "Pushkin", "title": "Eugeny Onegin", "year": 2001, "count_pages": 104},
-            {"id": book_2.id, "author": "Lermontov", "title": "Mziri", "year": 1997, "count_pages": 104}
-        ]
+        {"id": book.id, "author": "Pushkin", "title": "Eugeny Onegin", "year": 2001, "count_pages": 104},
+        {"id": book_2.id, "author": "Lermontov", "title": "Mziri", "year": 1997, "count_pages": 104}
+    ]
 
 
 # Тест на ручку, возвращающую список продавцов
@@ -68,8 +68,8 @@ async def test_get_sellers(db_session, async_client):
 
     assert response.json() == {
         "sellers": [
-            {"first_name": "Joe", "last_name": "Peachy", "email": "JoePeachy@email.com", "id": seller.id},
-            {"first_name": "Eugin", "last_name": "Arrow", "email": "BabyStep@email.com", "id": seller_2.id}
+            {"first_name": "First", "last_name": "Seller", "email": "First_Seller@mail.ru", "id": seller.id},
+            {"first_name": "Second", "last_name": "Seller", "email": "Second_Seller@mail.ru", "id": seller_2.id}
         ]
     }
 
@@ -130,4 +130,3 @@ async def test_delete_seller(db_session, async_client):
         book = await db_session.execute(select(books.Book))
         res = book.scalars().all()
         assert len(res) == 0
-        

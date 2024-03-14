@@ -64,8 +64,8 @@ async def test_get_books(db_session, async_client):
     # Проверяем интерфейс ответа, на который у нас есть контракт.
     assert response.json() == {
         "books": [
-            {"title": "Eugeny Onegin", "author": "Pushkin", "year": 2001, "id": book.id, "count_pages": 104},
-            {"title": "Mziri", "author": "Lermontov", "year": 1997, "id": book_2.id, "count_pages": 104},
+            {"title": "Eugeny Onegin", "author": "Pushkin", "year": 2001, "id": book.id, "count_pages": 104, "seller_id": seller.id},
+            {"title": "Mziri", "author": "Lermontov", "year": 1997, "id": book_2.id, "count_pages": 104, "seller_id": seller.id},
         ]
     }
 
